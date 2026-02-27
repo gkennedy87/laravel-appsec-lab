@@ -1,25 +1,34 @@
-# Laravel + Svelte Starter Kit
+# Multi-Tenant CRM (AppSec-Focused)
 
-## Introduction
+This project is a server-authenticated, multi-tenant CRM built with
+Laravel, Inertia, and Svelte. The primary goal is to demonstrate
+application security practices in real-world business software.
 
-Our Svelte starter kit provides a robust, modern starting point for building Laravel applications with a Svelte frontend using [Inertia](https://inertiajs.com).
+## Security Goals
+- Prevent tenant data leakage (IDOR)
+- Enforce object-level authorization
+- Protect authentication and session integrity
+- Reduce abuse via rate limiting and audit logging
 
-Inertia allows you to build modern, single-page Svelte applications using classic server-side routing and controllers. This lets you enjoy the frontend power of Svelte combined with the incredible backend productivity of Laravel and lightning-fast Vite compilation.
+## Threat Model (High-Level)
+| Threat | Risk | Mitigation |
+|------|------|------------|
+| IDOR | Cross-tenant data access | Tenant-scoped queries + policies |
+| Privilege escalation | Role abuse | Policy-based authorization |
+| CSRF | Session hijacking | CSRF tokens on all state-changing routes |
+| Enumeration | Data scraping | Rate limiting + pagination |
+| Data exfiltration | Bulk exports | Authorization + audit logs |
 
-This Svelte starter kit utilizes Svelte 5, TypeScript, Tailwind, and the [shadcn-svelte](https://shadcn-svelte.com) and [bits-ui](https://bits-ui.com) component libraries.
+## Auth Model
+- Session-based authentication
+- Role-based access per organization
+- Server-side enforcement only
 
-## Official Documentation
+## Authorization Strategy
+- Laravel policies per model
+- No role checks in controllers or frontend
+- All queries scoped to authenticated tenant
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
-
-## Contributing
-
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## License
-
-The Laravel + Svelte starter kit is open-sourced software licensed under the MIT license.
+## Testing
+- Feature tests for authorization boundaries
+- Negative tests for cross-tenant access
