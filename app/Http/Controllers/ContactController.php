@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ContactController extends Controller
 {
@@ -12,7 +14,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::all();
+
+        return Inertia::render('Contacts', ['contacts' => $contacts]);
     }
 
     /**
@@ -36,7 +40,9 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return Inertia::render('Record', [
+            'contact' => $contact
+        ]);
     }
 
     /**

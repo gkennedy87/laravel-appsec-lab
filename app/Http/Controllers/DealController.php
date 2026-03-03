@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Deal;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DealController extends Controller
 {

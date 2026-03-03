@@ -30,7 +30,7 @@
 {#if collapsible === 'none'}
     <div
         data-slot="sidebar"
-        class={cn('bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col', className)}
+        class={cn('text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col', className)}
     >
         {@render children?.()}
     </div>
